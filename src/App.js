@@ -36,32 +36,27 @@ function App() {
   const [checkOutItems,setCheckOutItems] = useState(false)
   const [startLoading,setStartLoading] = useState(true)
 
-
- 
   let sortedData = []
   const currentData = [...Data]
+
 
   const sortData = e =>{
     let sortTarget = e.target.value
     setSortBy(sortTarget)
-  
   }
 
   const sortDataOrder = e =>{
     let sortTargetOrger = e.target.value
     setSortOrder(sortTargetOrger)
-  
   }
 
   const clearCart = () =>{
     setCart([])
     setCheckOutItems(true)
-    
   }
 
 
   useEffect(()=>{ 
-
     if(sortBy === "Price"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -71,7 +66,6 @@ function App() {
           return parseFloat(b.price) - parseFloat(a.price)
         })
       }
-      
     }else if(sortBy === "Size"){
       if(sortOrder === "Ascending"){
       sortedData = currentData.sort( (a,b) => {
@@ -81,7 +75,6 @@ function App() {
         return parseFloat(b.size) - parseFloat(a.size)
       })
      }
-     
    }else if(sortBy === "Name"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -103,7 +96,6 @@ function App() {
           }
          })
       }
- 
     }else if(sortBy === "Date"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -113,14 +105,12 @@ function App() {
           return new Date(b.submitDate).valueOf() - new Date(a.submitDate).valueOf()
          })
        }
-     
     }
     setItems(sortedData)
   },[])
 
 
   useEffect(()=>{
-
     if(sortBy === "Price"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -131,7 +121,6 @@ function App() {
           return parseFloat(b.price) - parseFloat(a.price)
         })
       }
-      
     }else if(sortBy === "Size"){
       if(sortOrder === "Ascending"){
       sortedData = currentData.sort( (a,b) => {
@@ -141,7 +130,6 @@ function App() {
         return parseFloat(b.size) - parseFloat(a.size)
       })
      }
-     
    }else if(sortBy === "Name"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -163,7 +151,6 @@ function App() {
           }
          })
       }
- 
     }else if(sortBy === "Date"){
       if(sortOrder === "Ascending"){
        sortedData = currentData.sort( (a,b) => {
@@ -173,7 +160,6 @@ function App() {
           return new Date(b.submitDate).valueOf() - new Date(a.submitDate).valueOf()
          })
        }
-     
     }
     setItems(sortedData)
   },[sortBy,sortOrder])
@@ -183,7 +169,6 @@ function App() {
     const tempCart = [...cart]
     const arrSum = tempCart.reduce((a,b) => a + b.price, 0)
     setTotalPrice(arrSum)
-    
   },[])
 
 
@@ -194,7 +179,6 @@ function App() {
     if(tempCart.length !== 0){
       setCheckOutItems(false)
     }
-    
   },[cart])
 
 
@@ -214,11 +198,8 @@ function App() {
 
 
   const fetchMore = () =>{
-
-
     if((items.length -  currentValue) > 20){ // 45 - 20 = 5
       setCurrentValue(preValue => preValue + 20)
-      
     }else if((items.length -  currentValue) < 20 && (items.length -  currentValue) >= 0){
       setCurrentValue(prevValue => items.length)
       setHasMore(false)
@@ -244,7 +225,6 @@ function App() {
   }
 
   if(startLoading){
-    
     setTimeout(()=>{
       setStartLoading(false)
     },3000)
@@ -281,17 +261,15 @@ function App() {
               })}
           </div>
           <div className="total-price">
-          <div>
-          Total Price
-          </div>
-          <div>${totalPrice.toFixed(2)}</div>
+            <div>
+            Total Price
+            </div>
+            <div>${totalPrice.toFixed(2)}</div>
           </div>
           <div className="check-btn">
               <button className="check-outbtn" onClick={clearCart}>Checkout</button>
           </div>
           {checkOutItems && <div className="bought">YOU HAVE BOUGHT SUCCESSFULLY</div>}
-   
-
         </Modal>
 
 
@@ -338,26 +316,22 @@ function App() {
                   <option value="Size">Sort By Size</option>
                 </select>
                 <select className="sort-select sort-order" defaultValue={sortOrder} onChange ={e => sortDataOrder(e)} >
-                <option value="Ascending">Ascending</option>
+                  <option value="Ascending">Ascending</option>
                   <option value="Descending">Descending</option>
                 </select>
         </div>
-
         <hr></hr>
-       
         <div className="items-list">
-
-        <InfiniteScroll
-          dataLength={currentValue}
-          next={fetchMore}
-          hasMore={hasMore}
-          loader={<><br></br><h4>Loading...</h4></>}
-          className="items-list"
-          >
-            <ItemList items = {items.slice(0,currentValue)} addToCart= {addToCart} cart = {cart}/>
-        </InfiniteScroll>
+          <InfiniteScroll
+            dataLength={currentValue}
+            next={fetchMore}
+            hasMore={hasMore}
+            loader={<><br></br><h4>Loading...</h4></>}
+            className="items-list"
+            >
+              <ItemList items = {items.slice(0,currentValue)} addToCart= {addToCart} cart = {cart}/>
+          </InfiniteScroll>
         </div>
-    
         <div className="loading-next-data">{!hasMore && 'End of Catalogue'}<hr></hr></div>
       
     </>

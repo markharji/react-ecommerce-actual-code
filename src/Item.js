@@ -6,25 +6,12 @@ export default function Item({ item , addToCart ,cart} ) {
     const [labelText,setLabelText] = useState("Add To Cart")
     const [backDis,setBackDis] = useState("")
   
-
-    // useEffect(()=>{
-    //     if(cart.length === 0){
-    //         setBackDis("")
-    //         setLabelText("Add To Cart")
-    //         setAdded(false)
-    //     }
-    // },[])
-
-
-
-
     useEffect(()=>{
         if(cart.length === 0){
             setBackDis("")
             setLabelText("Add To Cart")
             setAdded(false)
         }
-   
     },[cart])
     
 
@@ -49,8 +36,6 @@ export default function Item({ item , addToCart ,cart} ) {
         }
     }
 
- 
-
     return (
         <>
         <div className="card">
@@ -65,10 +50,7 @@ export default function Item({ item , addToCart ,cart} ) {
                 <p className="item-price"><span className="label-details">Price:</span> ${item.price} </p>
                 <p className="item-date"><span className="label-details">Date:</span> {checkRelativeDate(item.submitDate)} </p>
             </div>
-               
-                <button className="item-button" onClick = {handleAddToCart} disabled={added} style={{backgroundColor:backDis}}>{labelText}</button>
-
-                
+            <button className="item-button" onClick = {handleAddToCart} disabled={added} style={{backgroundColor:backDis}}>{labelText}</button>
           </div>
         </div>
         </>
